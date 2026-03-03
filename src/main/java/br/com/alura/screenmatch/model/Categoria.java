@@ -1,13 +1,13 @@
 package br.com.alura.screenmatch.model;
 
 public enum Categoria {
-    acao("Action"),
-    romance("Romance"),
-    comedia("Comedy"),
-    drama("Drama"),
-    crime("Crime"),
-    terror("Thriller"),
-    fantasia("Fantasy");
+    Ação("Action"),
+    Romance("Romance"),
+    Comédia("Comedy"),
+    Drama("Drama"),
+    Crime("Crime"),
+    Terror("Thriller"),
+    Fantasia("Fantasy");
 
     private String categoriaOmdb;
 
