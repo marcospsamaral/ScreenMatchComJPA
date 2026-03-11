@@ -1,18 +1,33 @@
 package br.com.alura.screenmatch.model;
 
+import br.com.alura.screenmatch.repository.SerieRepository;
 import br.com.alura.screenmatch.service.traducao.ConsultaMyMemory;
-import com.fasterxml.jackson.annotation.JsonAlias;
+import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.OptionalDouble;
 
+@Entity
+@Table(name = "series")
 public class Serie {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Column(unique = true)
     private String titulo;
     private Integer totalTemporadas;
     private Double avaliacao;
+    @Enumerated(EnumType.STRING)
     private Categoria categorias;
+    @Column(name = "url_image")
     private String imagem;
     private String sinopse;
     private String atores;
+    @Transient
+    private List<Episodio> episodio = new ArrayList<>();
 
     public Serie (DadosSerie dadosSerie) {
         this.titulo = dadosSerie.titulo();
@@ -22,6 +37,14 @@ public class Serie {
         this.imagem = dadosSerie.imagem();
         this.sinopse = ConsultaMyMemory.obterTraducao(dadosSerie.sinopse()).trim();
         this.atores = dadosSerie.atores();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -91,5 +114,13 @@ public class Serie {
                 ", sinopse=" + sinopse +
                 ", atores=" + atores +
                 '}';
+    }
+
+    public List<Episodio> getEpisodio() {
+        return episodio;
+    }
+
+    public void setEpisodio(List<Episodio> episodio) {
+        this.episodio = episodio;
     }
 }
